@@ -14,7 +14,6 @@
 // Execute `rustlings hint hashmaps3` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
 
 use std::collections::HashMap;
 
@@ -39,6 +38,28 @@ fn build_scores_table(results: String) -> HashMap<String, Team> {
         // will be the number of goals conceded from team_2, and similarly
         // goals scored by team_2 will be the number of goals conceded by
         // team_1.
+
+
+        if let Some(existing_team) = scores.get_mut(&team_1_name) {
+            existing_team.goals_scored += team_1_score;
+            existing_team.goals_conceded += team_2_score;
+        }
+        let team1 = scores.entry(team_1_name).or_insert(Team{
+            goals_scored: team_1_score,
+            goals_conceded: team_2_score,
+        });
+
+
+        if let Some(existing_team) = scores.get_mut(&team_2_name) {
+            existing_team.goals_scored += team_2_score;
+            existing_team.goals_conceded += team_1_score;
+        }
+        let team2 = scores.entry(team_2_name).or_insert(Team{
+            goals_scored: team_2_score,
+            goals_conceded: team_1_score,
+        });
+
+
     }
     scores
 }
